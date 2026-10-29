@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Runway · ¿Cuánto tiempo puedes aguantar sin tu sueldo?</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mu:#667085;--bd:#e4e7ee;--ac:#4f46e5;--r:#dc2626;--a:#d97706;--g:#16a34a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1219;--card:#181c27;--tx:#eef0f6;--mu:#98a1b3;--bd:#2a3042;--ac:#818cf8;--r:#f87171;--a:#fbbf24;--g:#4ade80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1219;--card:#181c27;--tx:#eef0f6;--mu:#98a1b3;--bd:#2a3042;--ac:#818cf8;--r:#f87171;--a:#fbbf24;--g:#4ade80;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(28px,5vw,44px);margin:8px 0 4px;letter-spacing:-.02em}
+h2{font-size:20px;margin:0 0 12px}
+.sub{color:var(--mu);font-size:18px;margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.step{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.step b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;margin-right:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{display:block;font-size:14px;color:var(--mu)}
+input[type=number],select{width:100%;margin-top:4px;padding:10px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx)}
+input[type=range]{width:100%;accent-color:var(--ac)}
+button{font:inherit;padding:10px 16px;border-radius:10px;border:1px solid var(--ac);background:var(--ac);color:#fff;cursor:pointer}
+button.o{background:none;color:var(--ac)}
+.hero{text-align:center;border-width:2px}
+.hero .big{font-size:clamp(56px,14vw,96px);font-weight:800;line-height:1;margin:6px 0}
+.hero .tag{display:inline-block;padding:4px 14px;border-radius:99px;color:#fff;font-weight:600}
+.red{--c:var(--r)}.amber{--c:var(--a)}.green{--c:var(--g)}
+.hero.red,.hero.amber,.hero.green{border-color:var(--c)}
+.hero .big{color:var(--c,var(--tx))}.hero .tag{background:var(--c,var(--mu))}
+.sc{margin:14px 0}
+.sc .t{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:600}
+.sc .d{color:var(--mu);font-size:14px}
+.bar{height:14px;background:var(--bg);border:1px solid var(--bd);border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;background:var(--c);border-radius:99px;transition:width .4s}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.k{font-size:28px;font-weight:700}
+.warn{border-left:4px solid var(--a);padding:10px 14px;background:var(--bg);border-radius:8px;margin:8px 0}
+code{background:var(--bg);padding:2px 6px;border-radius:6px;font-size:14px}
+small{color:var(--mu)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.tabs button{background:none;color:var(--ac)}
+.tabs button.on{background:var(--ac);color:#fff}
+.pane{margin-bottom:12px}
+svg text{fill:var(--mu);font-size:11px}
+h3{font-size:16px;margin:20px 0 6px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Runway</h1>
+<p class="sub">¿Cuánto tiempo puedes aguantar sin tu sueldo?</p>
+
+<div class="steps">
+<div class="step"><b>1</b>Cuéntanos tu situación: ahorros, ingresos y gastos.</div>
+<div class="step"><b>2</b>Te decimos cuántos meses de runway tienes.</div>
+<div class="step"><b>3</b>Compara qué pasa si te despiden, renuncias, reduces jornada o te haces freelance.</div>
+<div class="step"><b>4</b>Te damos un plan de ahorro para dejarlo con seguridad.</div>
+</div>
+
+<div class="card">
+<h2>1 · Tu perfil financiero</h2>
+<div class="grid">
+<label>Ahorros líquidos (€)<input type="number" id="sav" value="3000" min="0"></label>
+<label>Ingreso neto mensual (€)<input type="number" id="inc" value="1500" min="0"></label>
+<label>Gastos esenciales al mes (€)<input type="number" id="ess" value="950" min="0"><small>Alquiler, comida, transporte, cuotas de deudas…</small></label>
+<label>Gastos de estilo de vida (€)<input type="number" id="life" value="250" min="0"><small>Ocio, suscripciones, caprichos</small></label>
+<label>Cuotas de deudas al mes (€)<input type="number" id="debt" value="150" min="0"><small>Ya incluidas en los esenciales</small></label>
+<label>Base de cotización media (€ brutos/mes)<input type="number" id="base" value="1900" min="0"></label>
+<label>Años cotizados<input type="number" id="yrs" value="4" min="0" step="0.5"></label>
+<label>Hijos a cargo<select id="kids"><option value="0">0</option><option value="1">1</option><option value="2">2 o más</option></select></label>
+</div>
+<p><button id="demo" class="o">Cargar perfil demo</button></p>
+</div>
+
+<div class="card hero" id="hero">
+<h2>2 · Tu runway</h2>
+<div class="big" id="rw">–</div>
+<div>meses de gastos esenciales cubiertos con tus ahorros</div>
+<p><span class="tag" id="tag"></span></p>
+<small><code>Runway = Ahorros ÷ Gastos esenciales</code></small>
+<div id="alerts"></div>
+</div>
+
+<div class="card">
+<h2>3 · ¿Y si…? Elige un escenario y una fecha</h2>
+<div class="tabs" id="tabs"><button class="on" data-t="0">Renuncio</button><button data-t="1">Me despiden</button><button data-t="2">Cambio de jornada</button><button data-t="3">Freelance</button></div>
+<div class="pane" data-t="0"><div class="grid"><label>Día en que renuncias<input type="date" id="d0"></label></div><small>Sin paro y sin ingresos: solo viven tus ahorros.</small></div>
+<div class="pane" data-t="1" hidden><div class="grid"><label>Día en que te despiden<input type="date" id="d1"></label></div><small>El paro se calcula con tus años cotizados y tu base de cotización (arriba). Verás cómo baja del 70 % al 60 % y cuándo se acaba.</small></div>
+<div class="pane" data-t="2" hidden><div class="grid"><label>Día en que cambia tu jornada<input type="date" id="d2"></label><label>¿Qué ocurre?<select id="sg"><option value="-">Me reducen la jornada</option><option value="+">Me aumentan la jornada</option></select></label><label>Porcentaje exacto (%)<input type="number" id="pc" value="25" min="0" max="100" step="1"></label></div><small>Se asume que tu sueldo cambia en la misma proporción.</small></div>
+<div class="pane" data-t="3" hidden><div class="grid"><label>Día en que empiezas como freelance<input type="date" id="d3"></label><label>Meses hasta llegar a ese ingreso: <b id="rv">0</b><input type="range" id="rp" min="0" max="12" value="0"></label>
+<label>Ingresos freelance (€/mes): <b id="fv">600</b><input type="range" id="fr" min="0" max="2500" step="50" value="600"></label>
+<label>Precio medio por cliente (€/mes): <b id="pv">300</b><input type="range" id="pr" min="100" max="1500" step="50" value="300"></label>
+</div></div>
+<div id="res"></div><div id="chart"></div>
+<h3>Comparación rápida: si ocurriera hoy</h3>
+<div id="scen"></div>
+<small>Barra llena = 24 meses o más. Estos resultados usan solo tus gastos esenciales.</small>
+</div>
+
+<div class="two">
+<div class="card">
+<h2>Coste real de renunciar</h2>
+<div class="k" id="cost1">–</div><div>dejas de ingresar cada mes</div>
+<p class="k" id="cost2">–</p><div>en un año sin sueldo</div>
+<p id="cost3"></p>
+</div>
+<div class="card">
+<h2>4 · Plan para renunciar con seguridad</h2>
+<label>Quiero poder dejarlo en <b id="nv">12</b> meses<input type="range" id="nr" min="1" max="36" value="12"></label>
+<label>Con un colchón de <b id="mv">6</b> meses<input type="range" id="mr" min="1" max="12" value="6"></label>
+<p class="k" id="plan">–</p><div id="plan2"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Cómo se calcula</h2>
+<p><code>Colchón = Gastos esenciales × Meses de seguridad</code><br>
+<code>Ahorro mensual = (Colchón − Ahorros) ÷ Meses hasta la salida</code><br>
+<code>Flujo mensual = Paro + Ingresos alternativos − Gastos esenciales</code></p>
+<div class="warn">El paro es una <b>estimación educativa</b>: 70 % de la base reguladora los primeros 180 días y 60 % después, con mínimos y máximos según hijos a cargo y el IPREM. Se necesitan al menos 360 días cotizados en los últimos 6 años y estar inscrito como demandante de empleo. La cuantía final puede variar.</div>
+<div class="warn"><b>Ojo con el impulso:</b> no tomes la decisión solo por un mal día. Mira tu liquidez, tus deudas y tus gastos fijos antes de dar el paso.</div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const n=id=>Math.max(0,parseFloat($(id).value)||0);
+const E=v=>Math.round(v).toLocaleString('es-ES')+' €';
+const M=v=>v>=60?'Sin límite':v.toLocaleString('es-ES',{maximumFractionDigits:1})+' meses';
+const cls=v=>v<3?'red':v<=6?'amber':'green';
+function sim(sav,fl){let s=sav;for(let m=0;m<60;m++){const f=fl(m);if(s+f<0)return m+s/(-f);s+=f}return 60}
+function paroDur(d){return d<360?0:Math.min(720,120+60*Math.floor((d-360)/180))}
+function calc(){
+const sav=n('sav'),inc=n('inc'),ess=n('ess'),life=n('life'),debt=n('debt'),base=n('base'),kids=+$('kids').value;
+const fr=n('fr'),pr=n('pr')||1,N=n('nr')||1,MS=n('mr');
+$('fv').textContent=fr;$('pv').textContent=pr;$('nv').textContent=N;$('mv').textContent=MS;
+const run=ess?sav/ess:60;
+const h=$('hero');h.className='card hero '+cls(run);
+$('rw').textContent=run>=60?'∞':run.toLocaleString('es-ES',{maximumFractionDigits:1});
+$('tag').textContent=run<3?'ROJO · riesgo alto':run<=6?'ÁMBAR · margen justo':'VERDE · colchón sólido';
+let al='';
+if(inc&&debt/inc>0.3)al+='<div class="warn">Tus deudas consumen el '+Math.round(debt/inc*100)+' % de tu ingreso (más del 30 %).</div>';
+if(inc&&ess+life>inc)al+='<div class="warn">Gastas más de lo que ingresas: tu colchón se reduce incluso trabajando.</div>';
+$('alerts').innerHTML=al;
+// paro
+const mn=kids?749:560,mx=[1225,1400,1575][kids],dur=paroDur(n('yrs')*360);
+const paro=m=>{if(m*30>=dur)return 0;return Math.min(mx,Math.max(mn,base*(m<6?.7:.6)))};
+const sc=[
+['Renuncio (sin ingresos)',sim(sav,()=>-ess),'Sin paro ni ingresos: solo tus ahorros.'],
+['Me despiden (con paro)',dur?sim(sav,m=>paro(m)-ess):sim(sav,()=>-ess),dur?'Paro ≈ '+E(paro(0))+'/mes los primeros 6 meses, durante '+Math.round(dur/30)+' meses.':'No llegas a 360 días cotizados: sin paro.'],
+['Reducen mi jornada un 25 %',sim(sav,()=>inc*.75-ess),'Ingresas '+E(inc*.75)+'/mes: flujo '+(inc*.75-ess>=0?'+':'')+E(inc*.75-ess)+'/mes.'],
+['Me hago freelance',sim(sav,()=>fr-ess),'Con '+E(fr)+'/mes. Para cubrir esenciales necesitas ≈ '+Math.ceil(ess/pr)+' clientes.']
+];
+$('scen').innerHTML=sc.map(([t,v,d])=>`<div class="sc ${cls(v)}"><div class="t"><span>${t}</span><span style="color:var(--c)">${M(v)}</span></div><div class="bar"><i style="width:${Math.min(100,v/24*100)}%"></i></div><div class="d">${d}</div></div>`).join('');
+// coste
+$('cost1').textContent=E(inc);$('cost2').textContent=E(inc*12);
+$('cost3').textContent=ess>0?'Tus ahorros cubrirían '+M(run)+' de gastos esenciales.':'';
+// plan
+const cush=ess*MS,need=Math.max(0,(cush-sav)/N),cap=inc-ess-life;
+$('plan').textContent=need>0?E(need)+' al mes':'¡Ya lo tienes!';
+$('plan2').innerHTML='Colchón objetivo: <b>'+E(cush)+'</b>. '+(need>0?(cap>=need?'Hoy te sobran '+E(cap)+'/mes: <b>es alcanzable</b>.':'Hoy te sobran '+E(Math.max(0,cap))+'/mes: recorta gastos de estilo de vida, consigue ingresos extra o alarga el plazo.'):'Ya cubres el colchón elegido.');
+}
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const T0=new Date();T0.setHours(0,0,0,0);
+['d0','d1','d2','d3'].forEach(i=>{$(i).value=iso(T0);$(i).min=iso(T0)});
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.pane').forEach(p=>p.hidden=p.dataset.t!==b.dataset.t);draw()});
+function draw(){
+const sav=n('sav'),inc=n('inc'),ess=n('ess'),life=n('life'),base=n('base'),kids=+$('kids').value;
+const t=+document.querySelector('#tabs .on').dataset.t;
+$('rv').textContent=n('rp');
+const dv=$('d'+t).value,D=dv?Math.max(0,Math.round((new Date(dv+'T00:00')-T0)/864e5)):0;
+const mn=kids?749:560,mx=[1225,1400,1575][kids],dur=paroDur(n('yrs')*360);
+const pc=Math.min(100,n('pc'))/100*($('sg').value==='-'?-1:1),fr=n('fr'),rp=n('rp');
+const fl=d=>{if(d<D)return(inc-ess-life)/30;const k=d-D;let i;
+if(t==0)i=0;else if(t==1)i=k<dur?Math.min(mx,Math.max(mn,base*(k<180?.7:.6))):0;
+else if(t==2)i=inc*(1+pc);else i=fr*(rp?Math.min(1,k/(rp*30)):1);return(i-ess)/30};
+const S=[sav];let z=null;
+for(let d=0;d<1080;d++){const f=fl(d),s=S[d]+f;if(s<0){z=d+S[d]/(-f);break}S.push(s)}
+const H=z===null?1080:Math.min(1080,Math.max(90,D+60,Math.ceil(z*1.15/30)*30));
+const L=Math.min(H,S.length-1),ym=Math.max(...S.slice(0,L+1),1)*1.1;
+const X=d=>50+d/H*630,Y=v=>250-v/ym*230;
+const dd=d=>new Date(T0.getTime()+d*864e5).toLocaleDateString('es-ES');
+const mo=z===null?null:Math.max(0,(z-D)/30);
+const c=z===null?'green':cls(mo);
+let pts='';for(let d=0;d<=L;d++)pts+=X(d).toFixed(1)+','+Y(S[d]).toFixed(1)+' ';
+if(z!==null)pts+=X(z).toFixed(1)+','+Y(0).toFixed(1);
+const xe=z!==null?z:L;
+let g='';for(let i=0;i<=4;i++){const v=ym*i/4;g+=`<line x1="50" x2="680" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--bd)"/><text x="46" y="${Y(v)+4}" text-anchor="end">${E(v)}</text>`}
+const st=Math.ceil(H/30/6);
+for(let m=0;m*30<=H;m+=st){const lb=new Date(T0.getTime()+m*30*864e5).toLocaleDateString('es-ES',{month:'short',year:'2-digit'});g+=`<text x="${X(m*30)}" y="272" text-anchor="middle">${lb}</text>`}
+if(D>0&&D<=H)g+=`<line x1="${X(D)}" x2="${X(D)}" y1="20" y2="250" stroke="var(--ac)" stroke-dasharray="5 4"/><text x="${X(D)+4}" y="32">Evento · ${dd(D)}</text>`;
+if(z!==null)g+=`<circle cx="${X(z)}" cy="${Y(0)}" r="6" fill="var(--r)"/><text x="${Math.min(X(z),600)}" y="${Y(0)-12}" style="font-weight:700;fill:var(--r)">Sin ahorros · ${dd(z)}</text>`;
+$('chart').innerHTML=`<div class="${c}"><svg viewBox="0 0 700 285" style="width:100%;height:auto">${g}<polygon points="${X(0)},250 ${pts} ${X(xe)},250" style="fill:var(--c);opacity:.15"/><polyline points="${pts}" fill="none" style="stroke:var(--c)" stroke-width="3" stroke-linejoin="round"/></svg></div><small>Evolución de tus ahorros día a día.</small>`;
+let r;
+if(z!==null&&z<D)r=`Con tu ritmo actual te quedas sin ahorros antes de esa fecha (${dd(z)}).`;
+else r=`Ahorros ese día: <b>${E(S[Math.min(D,S.length-1)])}</b> · Flujo mensual después: <b>${fl(D)*30>=0?'+':''}${E(fl(D)*30)}</b>`+(z===null?'. No te quedas sin ahorros en 36 meses.':'. Te quedas sin ahorros el <b>'+dd(z)+'</b>.');
+$('res').innerHTML=`<div class="${c}"><div class="k" style="color:var(--c)">${z===null?'Más de 36 meses':M(mo)}</div><div>de margen desde ese día</div><p>${r}</p></div>`;
+}
+const _c=calc;calc=function(){_c();draw()};
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',calc));
+$('demo').onclick=()=>{[['sav',3000],['inc',1500],['ess',950],['life',250],['debt',150],['base',1900],['yrs',4]].forEach(([i,v])=>$(i).value=v);$('kids').value=0;calc()};
+calc();
+</script>
+</body>
+</html>
